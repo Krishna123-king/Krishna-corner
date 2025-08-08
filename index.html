@@ -1,154 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Krishna's Form</title>
   <style>
     body {
-      background: linear-gradient(120deg, #1a1a1a, #2b2b2b);
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2e2e2e, #1c1c1c);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #00ffee90;
+      margin-top: 100px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
       text-align: center;
-      padding: 40px;
-      overflow-x: hidden;
-    }
-
-    /* Fill Form Button */
-    #fillFormBtn {
-      background-color: #00ffff;
-      color: black;
-      font-size: 20px;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      animation: float 2s infinite ease-in-out;
-    }
-
-    #fillFormBtn:hover {
-      background-color: #00cccc;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    form {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 12px;
-      width: 350px;
-      margin: 40px auto 0;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-      animation: fadeIn 1.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+      color: #00ffff;
+      margin-bottom: 30px;
     }
 
     label {
       display: block;
+      margin-bottom: 8px;
       margin-top: 15px;
-      font-size: 16px;
+      font-size: 15px;
+      color: #eeeeee;
     }
 
     input, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
       border: none;
-      font-size: 15px;
-      background-color: #222;
-      color: white;
-    }
-
-    button[type="submit"] {
-      margin-top: 20px;
-      padding: 12px 20px;
+      border-radius: 8px;
+      background-color: #ffffff;
       font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      background-color: #00ffff;
-      color: black;
-      cursor: pointer;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid #00ffff;
+    }
+
+    button {
+      margin-top: 20px;
       width: 100%;
-      transition: background 0.3s;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #00ccff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    button[type="submit"]:hover {
-      background-color: #00cccc;
+    button:hover {
+      background-color: #0099cc;
     }
 
-    #thankYouMsg {
-      display: none;
-      margin-top: 30px;
-      font-size: 20px;
-      color: #00ff99;
-      animation: fadeIn 1s ease-in;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #formBtn {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #ff4081;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin-top: 80px;
+        padding: 20px;
+      }
+
+      #formBtn {
+        font-size: 14px;
+        padding: 8px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Button -->
-  <button id="fillFormBtn" onclick="promptUser()">Fill this form</button>
+  <button id="formBtn" onclick="alert('Form bhar de bhai jaldi 😄')">Fill This Form</button>
 
-  <!-- The Form -->
-  <form id="contactForm">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" required>
+  <div class="container">
+    <h1>Basic Details Form</h1>
+    <form id="krishnaForm" action="https://formspree.io/f/xgvzpqvw" method="POST" onsubmit="return handleSubmit(event)">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
 
-    <label for="email">Your Email</label>
-    <input type="email" id="email" name="email" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
 
-    <label for="address">Address</label>
-    <textarea id="address" name="address" rows="3" required></textarea>
+      <label for="address">Address</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
 
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" required>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="3"></textarea>
 
-    <button type="submit">Submit</button>
-  </form>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
-  <!-- Thank You Message -->
-  <div id="thankYouMsg"></div>
-
-  <!-- Script -->
   <script>
-    function promptUser() {
-      alert("form bhar de bhai jaldi");
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      alert("Thank you, " + name + "! Your form has been submitted.");
+      event.target.submit(); // Actually submit the form
     }
-
-    document.getElementById("contactForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const formData = new FormData(form);
-      const userName = formData.get("name");
-
-      const response = await fetch("https://formspree.io/f/xgvzpqvw", {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        form.reset();
-        document.getElementById("thankYouMsg").innerText =
-          `✅ Thank you, ${userName}! Your form has been submitted.`;
-        document.getElementById("thankYouMsg").style.display = "block";
-      } else {
-        alert("❌ Something went wrong. Please try again.");
-      }
-    });
   </script>
-
 </body>
 </html>
